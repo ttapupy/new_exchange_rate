@@ -1,2 +1,2 @@
 # new_exchange_rate
-Rewriting my old exchange rate app
+itt újraírnám a régi tanulós appomat, ha lenne hozzá kedvem / időm
