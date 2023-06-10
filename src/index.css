@@ -30,6 +30,40 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #213547 !important;
+}
+
+th {
+  background-color: #b6bee5 !important;
+}
+
+td {
+  border: solid rgb(192, 192, 192) 1px !important;
+}
+
+tr td:first-of-type {
+  border-left: none !important;
+}
+
+tr td:last-of-type {
+  border-right: none !important;
+}
+
+th:first-of-type {
+  border-top-left-radius: 10px;
+}
+
+th:last-of-type {
+  border-top-right-radius: 10px;
+}
+tr:last-of-type td:first-of-type {
+  border-bottom: none !important;
+  border-bottom-left-radius: 10px;
+}
+tr:last-of-type td:last-of-type {
+  border-bottom: none !important;
+  border-right: none !important;
+  border-bottom-right-radius: 10px;
 }
 
 h1 {

@@ -1,2 +1,5 @@
 # new_exchange_rate
-itt újraírnám a régi tanulós appomat, ha lenne hozzá kedvem / időm
+A kind of demo app using @tanstack libraries: react-query and react-table.
+
+# under development
+ATM you can get actual exchange rates based on EUR, and later a retrospective graphicon per relation as well.
