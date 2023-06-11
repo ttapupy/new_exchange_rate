@@ -27,8 +27,8 @@ const DataTable = <TData extends object, TValue>({ data, columns, isLoading }: D
     <>
       <Table striped hover size="md">
         <thead style={{ position: "sticky", top: '0' }}>
-          {tableInstance.getHeaderGroups().map((headerGroup) => (
-            <tr>
+          {tableInstance.getHeaderGroups().map((headerGroup, idx) => (
+            <tr key={idx}>
               {headerGroup.headers.map((header) => (
                 <th style={{ fontWeight: 600, padding: "0.5rem 2rem" }} key={header.id}>
                   {flexRender(
@@ -46,7 +46,7 @@ const DataTable = <TData extends object, TValue>({ data, columns, isLoading }: D
               <th>{'in progress...'}</th>
             </tr> :
             (data?.length > 0 ?
-              tableInstance.getRowModel().rows.map(row => {
+              tableInstance.getRowModel().rows.map((row, idx) => {
                 return (
                   <tr style={{ height: '60px', padding: "0 1rem", textAlign: 'center' }} key={row.id}>
                     {row.getVisibleCells().map((cell) => {

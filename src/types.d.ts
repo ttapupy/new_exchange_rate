@@ -6,4 +6,4 @@ declare module '@tanstack/table-core' {
   }
 }
 
-type alignType = "center" | "left" | "right" | "justify" | "char" | undefined
+type alignType = "center" | "left" | "right" | "justify" | "char" | undefined;

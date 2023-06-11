@@ -13,3 +13,17 @@ export interface RatesResponse {
   date: string;
   rates: Rate;
 }
+
+export interface PeriodRatesData {
+  amount: number;
+  base: string;
+  start_date: string;
+  end_date: string;
+  rates: Record<string, Rate>;
+}
+
+export interface PeriodRatesResponse {
+  data: PeriodRatesData | null | undefined;
+  isFetching: boolean;
+  isError: boolean;
+}
