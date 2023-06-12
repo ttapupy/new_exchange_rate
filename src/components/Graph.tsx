@@ -1,92 +1,76 @@
-import { useEffect, useMemo, useCallback, useState } from 'react';
+import { Suspense, useMemo, useCallback, useState } from 'react';
 import { useGraphContext } from "../GraphContext";
 import { Rate, PeriodRatesData } from '../interfaces';
-import { Chart, AxisOptions } from 'react-charts'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import Loading from './Loading';
 
 type DailyRate = {
-  date: Date,
+  name: string,
   rate: number,
-  // scaleType: string;
 }
 
-type Series = {
-  label: string,
-  data: DailyRate[] | []
-}
 
 
 const Graph = () => {
 
   const { isFetching, isError, data: periodRatesData, toCurrency } = useGraphContext();
-  console.log('data:', periodRatesData);
 
   const formatData = useCallback((apiData: PeriodRatesData | null | undefined) => {
     if (apiData == null) return [];
 
     return Object.entries(apiData.rates).map(([k, v]: [k: string, v: Rate]) => {
-      const date = new Date(k) || null
+      const name = k || ""
       const rate = toCurrency ? v[toCurrency] || 0 : 0
-      return ({ date, rate })
+      return ({ name, rate })
     })
   }, [toCurrency])
 
-  const [graphData, setGraphData] = useState<Series[]>([])
+  const [graphData, setGraphData] = useState<DailyRate[]>([])
 
 
   useMemo(
     () => {
       if (periodRatesData) {
-        setGraphData(() => [
-          {
-            label: 'Daily Rates',
-            data: formatData(periodRatesData) || []
-          }
-        ])
+        setGraphData(() => formatData(periodRatesData) || [])
       } else {
         setGraphData([]);
       }
     }, [formatData, periodRatesData]
   )
 
-  const primaryAxis = useMemo(
-    (): AxisOptions<DailyRate> => ({
-      getValue: datum => datum.date,
-    }), [])
-
-  const secondaryAxes = useMemo(
-    (): AxisOptions<DailyRate>[] => [
-      {
-        getValue: datum => datum.rate,
-      },
-    ], [])
-
-  useEffect(() => {
-    console.log('graphData:', graphData);
-  }, [graphData])
-
+  const yaxis = {
+    tickFormatter: (value: string) => {
+      const floatValue = parseFloat(value)
+      const precision = floatValue >= 100 ? 1 : (floatValue >= 10 ? 2 : 3)
+      return floatValue.toFixed(precision)
+    }
+  }
 
   return (
     <>
       <Row>
         <Col>
-          <div>{`Current relation: EUR - ${toCurrency}.`}</div>
+          <div style={{ width: '100%', height: 320, paddingLeft: '0px' }}>
+            {graphData?.length ?
+              (<Suspense fallback={<Loading text={'Waiting for data to load...'} />}>
+                <ResponsiveContainer>
+                  <LineChart data={graphData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis {...yaxis} domain={[(dataMin: number) => (dataMin * 0.9), (dataMax: number) => (dataMax * 1.1)]} />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="rate" stroke="#8884d8" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </Suspense>) :
+              <Loading text={'Sorry, there is no data to load...'} />
+            }
+          </div>
         </Col>
       </Row>
 
-      {graphData?.length &&
-        <Row>
-          <Col>
-            <Chart
-              options={{
-                data: graphData,
-                primaryAxis,
-                secondaryAxes,
-              }}
-            />
-          </Col>
-        </Row>
-      }
     </>
   );
 }

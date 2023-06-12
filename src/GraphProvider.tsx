@@ -9,9 +9,7 @@ interface IGraphProviderProps {
 }
 
 
-
 const GraphProvider = ({ toCurrency, children }: PropsWithChildren<IGraphProviderProps>) => {
-
   const value: PeriodRatesResponse =
     useQuery(["periodRates", { toCurrency }], () => get30daysForCurrency(toCurrency), { enabled: !!toCurrency });
 

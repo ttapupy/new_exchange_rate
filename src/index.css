@@ -37,17 +37,6 @@ thead {
   z-index: 5 !important;
 }
 
-/* thead::before {
-  z-index: -1 !important;
-  left: 0 !important;
-  top: -2px !important;
-  background-color: #213547;
-  content: "";
-  height: 100% !important;
-  position: absolute !important;
-  width: 100% !important;
-} */
-
 th {
   z-index: 5 !important;
   background-color: #b6bee5 !important;
@@ -118,5 +107,38 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+
+  article.missing-slice {
+    flex: 1 1 400px;
+    min-height: 220px;
+    max-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 450px;
+    background: #e3516e;
+  }
+
+  .missing-slice > div {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .missing-slice p {
+    margin: 0;
+    height: 50%;
+    flex: 0 0 50%;
+    background: #fade8b;
+    border-radius: 0 100% 0 0;
+  }
+  .missing-slice p:first-of-type {
+    border-radius: 100% 0 0;
+    background: #51b5a9;
+  }
+  .missing-slice p:last-of-type {
+    border-radius: 0 0 0 100%;
+    background: #f7f3d7;
   }
 }

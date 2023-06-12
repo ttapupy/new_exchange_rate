@@ -12,9 +12,7 @@ import Graph from './Graph';
 
 
 const RateList = () => {
-
   const columnHelper = createColumnHelper<RateData>()
-
   const [data, setData] = useState<RateData[]>([])
   const [showModal, setShowModal] = useState(false)
   const [toCurrency, setToCurrency] = useState<string | null>(null)
@@ -23,7 +21,6 @@ const RateList = () => {
     setToCurrency(to);
     setShowModal(true);
   }
-
 
   const columns: ColumnDef<RateData>[] = useMemo(() => [
     { accessorKey: 'date', header: 'Date', meta: { align: 'left' } },

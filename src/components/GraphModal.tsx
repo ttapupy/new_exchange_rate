@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { useGraphContext } from "../GraphContext";
 
 
 interface IGraphModalProps {
@@ -9,13 +10,13 @@ interface IGraphModalProps {
 }
 
 export default function GraphModal({ show, setShow, children }: PropsWithChildren<IGraphModalProps>) {
+  const { toCurrency } = useGraphContext();
   return (
     <>
-      <Modal show={show} className="graph-modal">
-
+      <Modal show={show} size="lg">
         <Modal.Header>
           <Modal.Title>
-            {'Hello Leo'}
+            {`EUR - ${toCurrency} rates in last 30 days.`}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
