@@ -58,7 +58,7 @@ const Graph = () => {
                   <LineChart data={graphData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis {...yaxis} domain={[(dataMin: number) => (dataMin * 0.9), (dataMax: number) => (dataMax * 1.1)]} />
+                    <YAxis domain={[(dataMin: number) => (Math.floor(dataMin)), (dataMax: number) => (Math.round(dataMax))]} />
                     <Tooltip />
                     <Legend />
                     <Line type="monotone" dataKey="rate" stroke="#8884d8" />
