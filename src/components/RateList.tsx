@@ -30,7 +30,7 @@ const RateList = () => {
     columnHelper.display({
       id: 'actions',
       meta: { align: 'right' },
-      header: 'Historical graphicon',
+      header: 'Historical graph',
       cell: props => <ActionButton onClick={() => showHistory(props.row.original.to)} />,
     }),
   ], [columnHelper]);
